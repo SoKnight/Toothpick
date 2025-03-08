@@ -51,5 +51,10 @@ gradlePlugin {
             id = "xyz.jpenilla.toothpick"
             implementationClass = "xyz.jpenilla.toothpick.Toothpick"
         }
+
+        create("ToothpickSettings") {
+            id = "xyz.jpenilla.toothpick.settings"
+            implementationClass = "xyz.jpenilla.toothpick.ToothpickSettingsPlugin"
+        }
     }
 }
