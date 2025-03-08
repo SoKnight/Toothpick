@@ -1,74 +1,55 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
-  `kotlin-dsl`
-  id("com.gradle.plugin-publish")
-  id("net.kyori.indra")
-  id("net.kyori.indra.license-header")
-  id("net.kyori.indra.publishing.gradle-plugin")
+    `kotlin-dsl`
+    `maven-publish`
 }
 
 group = "xyz.jpenilla"
-version = "1.1.0-SNAPSHOT"
+version = "1.1.0+patch.1"
 description = "Gradle plugin to assist in forking Paper"
 
-repositories {
-  mavenCentral()
-  gradlePluginPortal()
-}
-
-dependencies {
-  implementation(libs.bundles.jackson)
-  implementation(libs.bundles.configurate)
-  implementation(libs.shadow)
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 kotlin {
-  explicitApi()
+    explicitApi()
+}
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation(libs.bundles.configurate)
+    implementation(libs.bundles.jackson)
+    implementation(libs.shadow)
 }
 
 tasks {
-  jar {
-    manifest {
-      attributes("Implementation-Version" to project.version)
-    }
-  }
-  compileKotlin {
-    kotlinOptions.apiVersion = "1.4"
-    kotlinOptions.jvmTarget = "1.8"
-  }
-}
-
-indra {
-  javaVersions {
-    target(8)
-  }
-  mitLicense()
-  github("jpenilla", "Toothpick")
-  publishSnapshotsTo("jmp", "https://repo.jpenilla.xyz/snapshots")
-  configurePublications {
-    pom {
-      developers {
-        developer {
-          id.set("jmp")
-          timezone.set("America/Los Angeles")
+    compileKotlin {
+        compilerOptions{
+            apiVersion.set(KotlinVersion.KOTLIN_2_2)
+            jvmTarget.set(JvmTarget.JVM_17)
+            languageVersion.set(KotlinVersion.KOTLIN_2_2)
         }
-      }
     }
-  }
+
+    jar {
+        manifest.attributes(mapOf(
+            "Implementation-Version" to project.version
+        ))
+    }
 }
 
-indraPluginPublishing {
-  plugin(
-    "toothpick",
-    "xyz.jpenilla.toothpick.Toothpick",
-    "Toothpick",
-    project.description
-  )
-  plugin(
-    "toothpick.settings",
-    "xyz.jpenilla.toothpick.ToothpickSettingsPlugin",
-    "Toothpick Settings",
-    "Companion settings plugin for Toothpick"
-  )
-  bundleTags("minecraft", "paper", "forking", "patching")
-  website("https://github.com/jpenilla/Toothpick")
+gradlePlugin {
+    plugins {
+        create("Toothpick") {
+            id = "xyz.jpenilla.toothpick"
+            implementationClass = "xyz.jpenilla.toothpick.Toothpick"
+        }
+    }
 }

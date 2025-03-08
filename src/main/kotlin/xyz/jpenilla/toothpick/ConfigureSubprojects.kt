@@ -38,21 +38,13 @@ import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.api.tasks.testing.Test
 import org.gradle.external.javadoc.StandardJavadocDocletOptions
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.attributes
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.get
-import org.gradle.kotlin.dsl.getByName
-import org.gradle.kotlin.dsl.getValue
-import org.gradle.kotlin.dsl.getting
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.*
 import xyz.jpenilla.toothpick.data.JavadocPlugin
 import xyz.jpenilla.toothpick.data.ShadePlugin
 import xyz.jpenilla.toothpick.shadow.ModifiedLog4j2PluginsCacheFileTransformer
 import xyz.jpenilla.toothpick.shadow.ToothpickRelocator
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 internal fun Project.commonSubprojectConfiguration() {
   apply<JavaLibraryPlugin>()
@@ -94,7 +86,7 @@ internal fun Project.configureServerProject(subproject: ToothpickSubproject) {
   setupPublication(subproject)
 
   val generatePomFileForMavenJavaPublication by tasks.getting(GenerateMavenPom::class) {
-    destination = project.buildDir.resolve("tmp/pom.xml")
+    destination = project.layout.buildDirectory.file("tmp/pom.xml").get().asFile
   }
 
   tasks.withType<Test> {
@@ -125,7 +117,7 @@ internal fun Project.configureServerProject(subproject: ToothpickSubproject) {
       )
     }
 
-    from(project.buildDir.resolve("tmp/pom.xml")) {
+    from(project.layout.buildDirectory.file("tmp/pom.xml")) {
       // dirty hack to make "java -Dpaperclip.install=true -jar paperclip.jar" work without forking paperclip
       into("META-INF/maven/io.papermc.paper/paper")
     }
@@ -160,10 +152,9 @@ internal fun Project.configureServerProject(subproject: ToothpickSubproject) {
 internal fun Project.configureApiProject(subproject: ToothpickSubproject) {
   tasks.withType<Jar> {
     doFirst {
-      buildDir.resolve("tmp/pom.properties")
-        .writeText("version=${project.version}")
+      layout.buildDirectory.file("tmp/pom.properties").get().asFile.writeText("version=${project.version}")
     }
-    from(buildDir.resolve("tmp/pom.properties")) {
+    from(layout.buildDirectory.file("tmp/pom.properties")) {
       into("META-INF/maven/${project.group}/${project.name}")
     }
     manifest {

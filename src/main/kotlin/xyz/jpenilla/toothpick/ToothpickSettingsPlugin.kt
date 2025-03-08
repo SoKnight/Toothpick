@@ -26,7 +26,7 @@ package xyz.jpenilla.toothpick
 import org.gradle.api.Plugin
 import org.gradle.api.initialization.ProjectDescriptor
 import org.gradle.api.initialization.Settings
-import java.util.Locale
+import java.util.*
 
 /**
  * Companion settings plugin for [Toothpick].
@@ -60,7 +60,7 @@ public fun Settings.setupToothpickProject(
   forkName: String,
   configuration: ToothpickSettings.() -> Unit = {}
 ): ToothpickSettings {
-  val forkNameLowercase = forkName.toLowerCase(Locale.ROOT)
+  val forkNameLowercase = forkName.lowercase(Locale.ROOT)
 
   fun setupSubproject(name: String, block: ProjectDescriptor.() -> Unit): ProjectDescriptor {
     val parentPath = parentProject.path
@@ -86,8 +86,8 @@ public fun Settings.setupToothpickProject(
  */
 public class ToothpickSettings(
   private val parentProject: ProjectDescriptor,
-  public val apiProject: ProjectDescriptor,
-  public val serverProject: ProjectDescriptor
+  private val apiProject: ProjectDescriptor,
+  private val serverProject: ProjectDescriptor
 ) {
   /**
    * Configure the API subproject [ProjectDescriptor].

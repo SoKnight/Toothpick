@@ -1,0 +1,15 @@
+[versions]
+configurate = "4.2.0"
+jackson = "2.18.3"
+shadow = "8.3.6"
+
+[libraries]
+configurateHocon = { module = "org.spongepowered:configurate-hocon", version.ref = "configurate" }
+configurateExtraKotlin = { module = "org.spongepowered:configurate-extra-kotlin", version.ref = "configurate" }
+jacksonDataformatXml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-xml", version.ref = "jackson" }
+jacksonModuleKotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+shadow = { module = "com.gradleup.shadow:com.gradleup.shadow.gradle.plugin", version.ref = "shadow" }
+
+[bundles]
+configurate = [ "configurateHocon", "configurateExtraKotlin" ]
+jackson = [ "jacksonDataformatXml", "jacksonModuleKotlin" ]

@@ -26,9 +26,13 @@ package xyz.jpenilla.toothpick.shadow
 import com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer
 import com.github.jengelman.gradle.plugins.shadow.transformers.Transformer
 import org.gradle.api.file.FileTreeElement
-import shadow.org.apache.logging.log4j.core.config.plugins.processor.PluginProcessor.PLUGIN_CACHE_FILE
 
 internal class ModifiedLog4j2PluginsCacheFileTransformer : Transformer by Log4j2PluginsCacheFileTransformer() {
+
+  companion object {
+    const val PLUGIN_CACHE_FILE: String = "META-INF/org/apache/logging/log4j/core/config/plugins/Log4j2Plugins.dat"
+  }
+
   /**
    * For some reason we have a file with name matching simply 'Log4j2Plugins.dat' and not PLUGIN_CACHE_FILE.
    * That file also needs to be merged.

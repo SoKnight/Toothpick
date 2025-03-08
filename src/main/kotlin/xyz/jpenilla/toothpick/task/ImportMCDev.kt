@@ -78,6 +78,7 @@ public abstract class ImportMCDev : ToothpickInternalTask() {
     if (!target.exists()) return false
     val message =
       "Skipped import for $className, a class with that name already exists in the source tree. Is there an extra entry in mcdevimports.conf?"
+    @Suppress("DEPRECATION")
     project.gradle.buildFinished {
       logger.warn(message)
     }

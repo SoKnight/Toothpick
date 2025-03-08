@@ -25,7 +25,7 @@ package xyz.jpenilla.toothpick
 
 import org.gradle.api.Project
 import java.io.File
-import java.util.Locale
+import java.util.*
 
 /**
  * An extension exposing configuration for [Toothpick].
@@ -35,7 +35,7 @@ import java.util.Locale
 public open class ToothpickExtension(public val project: Project) {
   public var forkName: String = project.name
   public val forkNameLowercase: String
-    get() = forkName.toLowerCase(Locale.ENGLISH)
+    get() = forkName.lowercase(Locale.ENGLISH)
   public lateinit var forkUrl: String
   public lateinit var forkVersion: String
   public lateinit var groupId: String
@@ -45,7 +45,7 @@ public open class ToothpickExtension(public val project: Project) {
 
   public lateinit var upstream: String
   public val upstreamLowercase: String
-    get() = upstream.toLowerCase(Locale.ENGLISH)
+    get() = upstream.lowercase(Locale.ENGLISH)
   public lateinit var upstreamBranch: String
 
   /**
@@ -120,9 +120,6 @@ public open class ToothpickExtension(public val project: Project) {
 
   internal val paperDecompDir: File
     get() = paperDir.resolve("work/Minecraft/${minecraftVersion}")
-
-  internal val paperWorkDir: File
-    get() = paperDir.resolve("work")
 
   internal val mavenCommand: String by lazy {
     if (exitsSuccessfully("mvn", "-v")) {

@@ -24,7 +24,7 @@
 package xyz.jpenilla.toothpick.task
 
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.register
@@ -52,7 +52,7 @@ internal fun Project.registerRunTasks() {
 
   val runDevServer = registerRunTask("runDevServer") {
     description = "Spin up a non-relocated test server"
-    main = "org.bukkit.craftbukkit.Main"
+    mainClass.set("org.bukkit.craftbukkit.Main")
     systemProperty("disable.watchdog", true)
   }
 
@@ -64,8 +64,8 @@ internal fun Project.registerRunTasks() {
     }
 
     runDevServer.configure {
-      classpath = toothpick.serverProject.project.convention.getPlugin(JavaPluginConvention::class.java)
-        .sourceSets.getByName("main").runtimeClasspath
+      val javaPluginExt = toothpick.serverProject.project.extensions.getByType(JavaPluginExtension::class.java)
+      classpath = javaPluginExt.sourceSets.getByName("main").compileClasspath
     }
   }
 }
