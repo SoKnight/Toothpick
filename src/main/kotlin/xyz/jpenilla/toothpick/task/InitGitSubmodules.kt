@@ -28,7 +28,7 @@ import xyz.jpenilla.toothpick.gitCmd
 
 public open class InitGitSubmodules : ToothpickTask() {
   @TaskAction
-  private fun initGitSubmodules() {
+  public fun initGitSubmodules() {
     val exit = gitCmd("submodule", "update", "--init", "--recursive", printOut = true, dir = project.projectDir).exitCode
     if (exit != 0) {
       error("Failed to checkout git submodules: git exited with code $exit")

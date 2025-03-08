@@ -29,7 +29,7 @@ import xyz.jpenilla.toothpick.gitCmd
 
 public open class UpdateUpstream : ToothpickTask() {
   @TaskAction
-  private fun updateUpstream() {
+  public fun updateUpstream() {
     ensureSuccess(gitCmd("fetch", dir = toothpick.upstreamDir, printOut = true))
     ensureSuccess(gitCmd("reset", "--hard", toothpick.upstreamBranch, dir = toothpick.upstreamDir, printOut = true))
     ensureSuccess(gitCmd("add", toothpick.upstream, dir = toothpick.project.projectDir, printOut = true))

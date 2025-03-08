@@ -29,7 +29,7 @@ import xyz.jpenilla.toothpick.gitCmd
 import xyz.jpenilla.toothpick.reEnableGitSigning
 import xyz.jpenilla.toothpick.temporarilyDisableGitSigning
 import java.nio.file.Files
-import java.util.LinkedList
+import java.util.*
 
 public abstract class ApplyPatches : ToothpickTask() {
   public companion object {
@@ -44,7 +44,7 @@ public abstract class ApplyPatches : ToothpickTask() {
   private val applyCommand = LinkedList(DEFAULT_APPLY_COMMAND)
 
   @TaskAction
-  private fun applyPatches() {
+  public fun applyPatches() {
     for (subproject in toothpick.subprojects) {
       val (baseDir, projectDir, patchesDir) = subproject
       val name = projectDir.name

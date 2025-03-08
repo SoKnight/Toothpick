@@ -35,7 +35,7 @@ public open class Paperclip : ToothpickTask() {
   public val patchedJar: RegularFileProperty = project.objects.fileProperty()
 
   @TaskAction
-  private fun paperclip() {
+  public fun paperclip() {
     val workDir = toothpick.paperDir.resolve("work")
     val paperclipDir = workDir.resolve("Paperclip")
     val vanillaJarPath = workDir.resolve("Minecraft/${toothpick.minecraftVersion}/${toothpick.minecraftVersion}.jar").absolutePath

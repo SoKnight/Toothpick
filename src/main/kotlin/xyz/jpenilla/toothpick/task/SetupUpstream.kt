@@ -30,7 +30,7 @@ import java.io.File
 
 public open class SetupUpstream : ToothpickTask() {
   @TaskAction
-  private fun setupUpstream() {
+  public fun setupUpstream() {
     val upstreamDir = toothpick.upstreamDir
     if (upstreamDir.resolve(toothpick.upstreamLowercase).exists()) {
       setupPaperOrBYOFUpstream(upstreamDir)

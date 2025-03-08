@@ -34,7 +34,7 @@ public open class Clean : ToothpickTask() {
   }
 
   @TaskAction
-  private fun clean() {
+  public fun clean() {
     directoriesToClean.forEach { it.deleteOrNotify() }
   }
 

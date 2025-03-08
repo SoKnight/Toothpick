@@ -43,7 +43,7 @@ public open class RepackageNMS : ToothpickTask() {
   public var classMappingsUrl: URL = DEFAULT_CLASS_MAPPINGS_URL
 
   @TaskAction
-  private fun repackage() {
+  public fun repackage() {
     logger.lifecycle("Downloading class mappings...")
     val mappingsFileText = classMappingsUrl.readText()
     logger.lifecycle("Done downloading class mappings.")

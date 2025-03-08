@@ -29,7 +29,7 @@ import xyz.jpenilla.toothpick.gitCmd
 
 public open class UpstreamCommit : ToothpickTask() {
   @TaskAction
-  private fun upstreamCommit() {
+  public fun upstreamCommit() {
     val oldRev = ensureSuccess(gitCmd("ls-tree", "HEAD", toothpick.upstream, dir = project.projectDir))
       ?.substringAfter("commit ")?.substringBefore("\t")
     val gitChangelog =

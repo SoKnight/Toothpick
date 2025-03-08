@@ -92,7 +92,7 @@ public abstract class ImportMCDev : ToothpickInternalTask() {
   }
 
   @TaskAction
-  private fun importMCDev() {
+  public fun importMCDev() {
     logger.lifecycle(">>> Importing mc-dev")
     val lastCommitIsMCDev = gitCmd(
       "log", "-1", "--oneline",
