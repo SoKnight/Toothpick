@@ -32,9 +32,9 @@ dependencies {
 tasks {
     compileKotlin {
         compilerOptions{
-            apiVersion.set(KotlinVersion.KOTLIN_2_2)
+            apiVersion.set(KotlinVersion.KOTLIN_2_0)
             jvmTarget.set(JvmTarget.JVM_17)
-            languageVersion.set(KotlinVersion.KOTLIN_2_2)
+            languageVersion.set(KotlinVersion.KOTLIN_2_0)
         }
     }
 
