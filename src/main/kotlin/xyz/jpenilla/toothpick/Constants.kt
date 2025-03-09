@@ -35,7 +35,7 @@ internal object Constants {
   object Repositories {
     const val MINECRAFT = "https://libraries.minecraft.net/"
     const val AIKAR = "https://repo.aikar.co/content/groups/aikar/"
-    const val PAPER = "https://papermc.io/repo/repository/maven-public/"
+    const val PAPER = "https://repo.papermc.io/repository/maven-public/"
   }
 
   object Dependencies {
